@@ -16,6 +16,10 @@ A simple React application built to demonstrate login functionality with a moder
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## App Screen Shots
+
+<img src="https://github.com/user-attachments/assets/a8ede84f-2d6b-4e2e-adca-af2e81a10b2c" alt="Image" width="500" />
+
 ## Installation
 
 1. Clone the repository:
