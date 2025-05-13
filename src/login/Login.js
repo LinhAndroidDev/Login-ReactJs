@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ViewOr } from "./ViewOr";
 import { LoginOtherView } from "./LoginOtherView";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
     const [formData, setFormData] = useState({
@@ -18,6 +19,18 @@ export const Login = () => {
             [name]: value
         });
     };
+
+    const navigate = useNavigate();
+
+    const navigateToRegister = () => {
+        navigate('/register'); // chuyển sang màn hình Giới thiệu
+    };
+
+    const navigateToForgetPassword = () => {
+        navigate('/forget_password');
+    }
+
+    const [isHover, setIsHover] = useState(false);
 
     return (
         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -44,7 +57,21 @@ export const Login = () => {
                         alignItems: 'center'
                     }}>
                         <p style={{ fontSize: '14px', color: 'black', fontWeight: '500' }}>Password</p>
-                        <p style={{ fontSize: '10px', color: '#0C2A92', fontWeight: '500' }}>forgot password</p>
+                        <p
+                            style={{
+                                fontSize: '10px',
+                                color: isHover ? '#FF5733' : '#0C2A92', // đổi màu khi hover
+                                fontWeight: '500',
+                                textDecoration: isHover ? 'underline' : 'none',
+                                cursor: 'pointer',
+                                transition: 'all 0.3s ease',
+                            }}
+                            onMouseEnter={() => setIsHover(true)}
+                            onMouseLeave={() => setIsHover(false)}
+                            onClick={navigateToForgetPassword}
+                        >
+                            forgot password
+                        </p>
                     </div>
                     <div style={{ position: 'relative', width: 'fit-content' }}>
                         <input
@@ -108,6 +135,7 @@ export const Login = () => {
                             e.target.style.color = '#0F3DDE'
                             e.target.style.textDecoration = 'none';
                         }}
+                        onClick={navigateToRegister}
                     >
                             Sign Up
                         </span></p>
