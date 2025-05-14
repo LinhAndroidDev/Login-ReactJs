@@ -4,7 +4,8 @@ const colors = {
     iconUnSelected: '#c6ddf5',
     greyBg: 'rgba(224, 224, 224, 0.3)',
     greyDivider: 'rgb(227, 227, 227)',
-    grey: 'rgb(176, 176, 176)'
+    grey: 'rgb(176, 176, 176)',
+    greyDark: 'rgb(100, 100, 100)'
 }
 
 export default colors;
