@@ -30,6 +30,14 @@ export const Login = () => {
         navigate('/forget_password');
     }
 
+    const navigateToHome = () => {
+        if (formData.email === 'linhnguyen@gmail.com' && formData.password === '1234567') {
+            navigate('/home');
+        } else {
+            alert("Email or password fail")
+        }
+    }
+
     const [isHover, setIsHover] = useState(false);
 
     return (
@@ -104,7 +112,7 @@ export const Login = () => {
                         <input type="checkbox" />
                         <p style={{ fontSize: '9px', color: 'black', fontWeight: '500', marginLeft: '6px' }}>Remember for 30 days</p>
                     </div>
-                    <p className="button-login" style={{ marginTop: '20px' }}>Login</p>
+                    <p className="button-login" onClick={navigateToHome} style={{ marginTop: '20px' }}>Login</p>
                     <ViewOr />
                     <div style={{ display: 'flex', width: '404px' }}>
                         <LoginOtherView icon="assets/ic_google.svg" title="Sign in with Google" />
