@@ -1,152 +1,124 @@
-import { AiOutlineEllipsis } from "react-icons/ai";
+import { FaUser } from "react-icons/fa";
+import { InformationBodyView } from "./InformationBodyView";
+import { BiSolidReport } from "react-icons/bi";
+import { GiShoppingBag } from "react-icons/gi";
 import colors from "../style/colors";
-import { ItemInformationBasic } from "./ItemInformationBasic";
+import { useState } from "react";
+import ItemViewFeature from "./ItemViewFeature";
+import { ItemCredentialView } from "./ItemCredentialView";
+import { ItemLicencesView } from "./ItemLicencesView";
 
 export const ViewBodyHome = () => {
+  let credentials = [
+    {
+      title: "Professional Licences",
+      quantity: 1,
+    },
+    {
+      title: "Required Documents",
+      quantity: 1,
+    },
+    {
+      title: "Medical Documents",
+      quantity: 2,
+    },
+    {
+      title: "HR Documents",
+      quantity: 1,
+    },
+    {
+      title: "Orientation Packet",
+      quantity: 0,
+    },
+  ];
+
+  const [indexClickCredential, setClickCredential] = useState(0);
+
   return (
     <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
       <InformationBodyView />
+      <ViewFeature />
+      <div style={{ display: "flex", width: "100%", padding: "20px" }}>
+        <div
+          style={{
+            display: "flex",
+            flex: "1",
+            flexDirection: "column",
+            gap: "5px",
+            marginRight: "20px",
+          }}
+        >
+          {credentials.map((item, index) => {
+            return (
+              <ItemCredentialView
+                title={item.title}
+                quantity={item.quantity}
+                onClick={() => setClickCredential(index)}
+                selected={indexClickCredential === index}
+              />
+            );
+          })}
+        </div>
+        <div
+          style={{ flex: "4", flexDirection: "column", justifyItems: "start" }}
+        >
+          <p style={{ fontSize: "16px", fontWeight: "500", color: "black" }}>
+            {credentials[indexClickCredential].title}
+          </p>
+          <div style={{ display: "flex", width: "100%" }}>
+            <ItemLicencesView ok={true} />
+            <ItemLicencesView ok={false} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
-function InformationBodyView() {
+function ViewFeature() {
+  let features = [
+    {
+      Icon: FaUser,
+      title: "Details",
+    },
+    {
+      Icon: BiSolidReport,
+      title: "Credetials",
+    },
+    {
+      Icon: GiShoppingBag,
+      title: "Experience",
+    },
+  ];
+
+  let [hoveredIndex, setHoveredIndex] = useState(null);
+
   return (
     <div
       style={{
         display: "flex",
-        flexDirection: "column",
         width: "100%",
+        padding: "10px 30px 10px 20px",
         borderBottomStyle: "solid",
         borderBottomWidth: "1px",
         borderBlockColor: colors.greyDivider,
-        paddingBottom: "20px",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          padding: "20px",
-          width: "100%",
-          alignItems: "start",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <img
-            src="https://watermark.lovepik.com/photo/20211210/large/lovepik-youth-female-nurse-professional-image-picture_501779592.jpg"
-            style={{
-              width: "70px",
-              height: "70px",
-              borderRadius: "50%",
-              objectFit: "cover",
-            }}
+      {features.map((item, index) => {
+        return (
+          <ItemViewFeature
+            key={index}
+            IconComponent={item.Icon}
+            title={item.title}
+            isHovered={hoveredIndex === index}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            colorHover={colors.iconSelected}
+            colorNormal={colors.greyDark}
+            bgColorHover={colors.blue30}
           />
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              marginLeft: "15px",
-              alignItems: "start",
-            }}
-          >
-            <div style={{ display: "flex" }}>
-              <p
-                style={{ fontSize: "18px", color: "black", fontWeight: "500" }}
-              >
-                Bessie Cooper
-              </p>
-              <p
-                style={{
-                  fontSize: "14px",
-                  color: "rgb(240, 100, 0)",
-                  fontWeight: "500",
-                  backgroundColor: "rgba(216, 90, 0, 0.1)",
-                  borderRadius: "8px",
-                  padding: "0px 10px 0px 10px",
-                  marginLeft: "10px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                LPN
-              </p>
-            </div>
-            <p
-              style={{
-                fontSize: "12px",
-                color: colors.greyDark,
-                marginTop: "5px",
-              }}
-            >
-              Rehabilitation
-            </p>
-          </div>
-        </div>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <AiOutlineEllipsis
-            color={colors.greyDark}
-            style={{
-              width: "35px",
-              height: "35px",
-              backgroundColor: colors.greyBg,
-              borderRadius: "10px",
-              padding: "5px",
-            }}
-          />
-          <div
-            style={{
-              width: "1px",
-              height: "25px",
-              backgroundColor: colors.greyDivider,
-              marginLeft: "10px",
-            }}
-          />
-          <p
-            style={{
-              fontSize: "14px",
-              color: "black",
-              fontWeight: "500",
-              marginLeft: "20px",
-              marginRight: "20px",
-            }}
-          >
-            Reject
-          </p>
-          <button
-            style={{
-              fontSize: "14px",
-              color: "white",
-              fontWeight: "500",
-              backgroundColor: colors.iconSelected,
-              padding: "8px 15px 8px 15px",
-              borderRadius: "8px",
-              border: "none",
-            }}
-          >
-            Approve Request
-          </button>
-        </div>
-      </div>
-      <ListInformationBasicUser />
-    </div>
-  );
-}
-
-function ListInformationBasicUser() {
-  return (
-    <div style={{ display: "flex", marginLeft: "20px", marginRight: "20px" }}>
-      <ItemInformationBasic detail="100%" title="Attendance Score" />
-      <ItemInformationBasic detail="4.5/5" title="Evaluation Rating" />
-      <ItemInformationBasic detail="120:34" title="Hours Worked" />
-      <ItemInformationBasic detail="99%" title="On-time Rate" />
-      <ItemInformationBasic detail="100" title="Shifts Completed" />
-      <ItemInformationBasic
-        detail="99%"
-        title="Show Rate"
-        hasMarginRight="0px"
-      />
+        );
+      })}
     </div>
   );
 }
