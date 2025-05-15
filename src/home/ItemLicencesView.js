@@ -87,7 +87,7 @@ export const ItemLicencesView = ({ ok = false }) => {
         />
         <p
           style={{
-            fontSize: "12px",
+            fontSize: "13px",
             color: colors.iconSelected,
             fontWeight: "500",
             marginLeft: "5px"
