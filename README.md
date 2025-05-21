@@ -22,13 +22,19 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 <img src="https://github.com/user-attachments/assets/dc7288e3-bc5d-4726-9422-869c2b89c989" alt="Image" width="100%" />
 
+<br/>
+
 2.Screen Register
 
 <img src="https://github.com/user-attachments/assets/5d252d07-69a2-416b-9003-ee7fcdc9b22a" alt="Image" width="100%" />
 
+<br/>
+
 3.Screen Home
 
 <img src="https://github.com/user-attachments/assets/440b568c-1f09-4027-ad3d-c5201c04fe07" alt="Image" width="100%" />
+
+<br/>
 
 ## Installation
 
