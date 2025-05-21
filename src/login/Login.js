@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ViewOr } from "./ViewOr";
 import { LoginOtherView } from "./LoginOtherView";
 import { useNavigate } from "react-router-dom";
+import { loginDoctor } from "./LoginController";
 
 export const Login = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,8 @@ export const Login = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   // Hàm xử lý sự thay đổi của input
   const handleInputChange = (e) => {
@@ -23,21 +26,34 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const navigateToRegister = () => {
-    navigate("/register"); // chuyển sang màn hình Giới thiệu
+    navigate("/register");
   };
 
   const navigateToForgetPassword = () => {
     navigate("/forget_password");
   };
 
-  const navigateToHome = () => {
-    if (
-      formData.email === "linhnguyen@gmail.com" &&
-      formData.password === "1234567"
-    ) {
-      navigate("/home");
-    } else {
-      alert("Email or password fail");
+  const handleLogin = async () => {
+    try {
+      setIsLoading(true);
+      setError("");
+
+      const result = await loginDoctor(formData.email, formData.password);
+
+      if (result.success) {
+        // Lưu thông tin user vào localStorage
+        localStorage.setItem("user", JSON.stringify(result.data));
+        // Chuyển hướng đến trang home sau khi đăng nhập thành công
+        navigate("/home");
+      } else {
+        setError(result.error);
+        alert(result.error);
+      }
+    } catch (err) {
+      setError(err.message || "An error occurred during login");
+      alert(err.message || "Login failed. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -95,7 +111,7 @@ export const Login = () => {
             <p
               style={{
                 fontSize: "10px",
-                color: isHover ? "#FF5733" : "#0C2A92", // đổi màu khi hover
+                color: isHover ? "#FF5733" : "#0C2A92",
                 fontWeight: "500",
                 textDecoration: isHover ? "underline" : "none",
                 cursor: "pointer",
@@ -150,10 +166,14 @@ export const Login = () => {
           </div>
           <p
             className="button-login"
-            onClick={navigateToHome}
-            style={{ marginTop: "20px" }}
+            onClick={handleLogin}
+            style={{
+              marginTop: "20px",
+              opacity: isLoading ? 0.7 : 1,
+              cursor: isLoading ? "not-allowed" : "pointer",
+            }}
           >
-            Login
+            {isLoading ? "Logging in..." : "Login"}
           </p>
           <ViewOr />
           <div style={{ display: "flex", width: "404px" }}>
@@ -177,10 +197,10 @@ export const Login = () => {
               marginTop: "20px",
             }}
           >
-            Don’t have an account?{" "}
+            Don't have an account?{" "}
             <span
               style={{
-                marginLeft: "5px", // ➕ thêm khoảng cách với đoạn trước
+                marginLeft: "5px",
                 color: "#0F3DDE",
                 fontWeight: "normal",
                 cursor: "pointer",
@@ -190,7 +210,7 @@ export const Login = () => {
               onMouseEnter={(e) => {
                 e.target.style.color = "#8a2be2";
                 e.target.style.textDecoration = "underline";
-              }} // tím đậm hơn khi hover
+              }}
               onMouseLeave={(e) => {
                 e.target.style.color = "#0F3DDE";
                 e.target.style.textDecoration = "none";

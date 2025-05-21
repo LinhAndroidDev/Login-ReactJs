@@ -90,7 +90,7 @@ export const ItemLicencesView = ({ ok = false }) => {
             fontSize: "13px",
             color: colors.iconSelected,
             fontWeight: "500",
-            marginLeft: "5px"
+            marginLeft: "5px",
           }}
         >
           GA_CNA_-_Bessie Cooper_Exp_03212025.pdf

@@ -29,7 +29,7 @@ export const Register = () => {
 
   const handleBack = () => {
     navigate(-1);
-  }
+  };
 
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
