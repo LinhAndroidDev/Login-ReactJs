@@ -13,6 +13,8 @@ export const ViewTopHome = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const navigate = useNavigate();
+  const userData = JSON.parse(localStorage.getItem("user"));
+  const { name } = userData;
 
   const handleBack = () => {
     setShowConfirm(true);
@@ -108,7 +110,7 @@ export const ViewTopHome = () => {
             marginLeft: "10px",
           }}
         >
-          Bessie Coooper
+          {name}
         </p>
       </div>
       <div style={{ display: "flex", alignItems: "center" }}>
@@ -136,9 +138,7 @@ export const ViewTopHome = () => {
             }}
             alt="Avatar"
           />
-          <div
-            class="dropdown-content"
-          >
+          <div class="dropdown-content">
             <p>View profile</p>
             <p onClick={handleBack}>Log out</p>
           </div>

@@ -34,9 +34,12 @@ export const ViewBodyHome = () => {
 
   const [indexClickCredential, setClickCredential] = useState(0);
 
+  const userData = JSON.parse(localStorage.getItem("user"));
+  const { name } = userData;
+
   return (
     <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-      <InformationBodyView />
+      <InformationBodyView nameDoctor={name} />
       <ViewFeature />
       <div style={{ display: "flex", width: "100%", padding: "20px" }}>
         <div

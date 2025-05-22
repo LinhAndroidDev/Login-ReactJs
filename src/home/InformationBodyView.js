@@ -2,7 +2,7 @@ import { AiOutlineEllipsis } from "react-icons/ai";
 import { ItemInformationBasic } from "./ItemInformationBasic";
 import colors from "../style/colors";
 
-export const InformationBodyView = () => {
+export const InformationBodyView = ({ nameDoctor }) => {
   return (
     <div
       style={{
@@ -46,7 +46,7 @@ export const InformationBodyView = () => {
               <p
                 style={{ fontSize: "18px", color: "black", fontWeight: "500" }}
               >
-                Bessie Cooper
+                {nameDoctor}
               </p>
               <p
                 style={{
