@@ -2,6 +2,7 @@ import { useState } from "react";
 import { LoginOtherView } from "../login/LoginOtherView";
 import { ViewOr } from "../login/ViewOr";
 import { useNavigate } from "react-router-dom";
+import { registerDoctor } from "./RegisterController";
 
 export const Register = () => {
   const [formData, setFormData] = useState({
@@ -23,12 +24,40 @@ export const Register = () => {
 
   const navigate = useNavigate();
 
-  const navigateToLogin = () => {
-    navigate("/");
-  };
-
   const handleBack = () => {
     navigate(-1);
+  };
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleRegister = async () => {
+    if (
+      formData.name.length < 1 ||
+      formData.email.length < 1 ||
+      formData.password.length < 1
+    ) {
+      alert("Bạn cần nhập đầy đủ thông tin");
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+
+      let result = await registerDoctor(
+        formData.name,
+        formData.email,
+        formData.password
+      );
+      if (result.success) {
+        navigate("/");
+      } else {
+        alert(result.error);
+      }
+    } catch (err) {
+      alert(err.message || "Register failed. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -130,10 +159,10 @@ export const Register = () => {
           </div>
           <p
             className="button-login"
-            onClick={navigateToLogin}
+            onClick={handleRegister}
             style={{ marginTop: "20px" }}
           >
-            Sign Up
+            {isLoading ? "Signing Up..." : "Sign Up"}
           </p>
           <ViewOr />
           <div style={{ display: "flex", width: "404px" }}>

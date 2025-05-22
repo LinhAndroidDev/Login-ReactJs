@@ -12,7 +12,6 @@ export const Login = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
 
   // Hàm xử lý sự thay đổi của input
   const handleInputChange = (e) => {
@@ -36,7 +35,6 @@ export const Login = () => {
   const handleLogin = async () => {
     try {
       setIsLoading(true);
-      setError("");
 
       const result = await loginDoctor(formData.email, formData.password);
 
@@ -46,11 +44,9 @@ export const Login = () => {
         // Chuyển hướng đến trang home sau khi đăng nhập thành công
         navigate("/home");
       } else {
-        setError(result.error);
         alert(result.error);
       }
     } catch (err) {
-      setError(err.message || "An error occurred during login");
       alert(err.message || "Login failed. Please try again.");
     } finally {
       setIsLoading(false);
